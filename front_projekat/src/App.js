@@ -6,6 +6,9 @@ import SviRecepti from "./Pages/SviRecepti";
 import DetaljiRecepta from "./Pages/DetaljiRecepta";
 import SviSastojci from "./Pages/SviSastojci";
 import DodajSastojak from "./Pages/DodajSastojak";
+import DodajRecept from "./Pages/DodajRecept";
+import MojiPlanovi from "./Pages/MojiPlanovi";
+import DetaljiPlana from "./Pages/DetaljiPlana";
 
 function App() {
   return (
@@ -18,6 +21,9 @@ function App() {
           <Route path="/recepti/:id" element={<DetaljiRecepta/>}/>
           <Route path="/sastojci" element={<SviSastojci/>}/>
           <Route path="/dodaj-sastojak" element={<DodajSastojak/>}/>
+            <Route path="/dodaj-recept" element={<DodajRecept/>}/>
+          <Route path="/planovi" element={<MojiPlanovi/>}/>
+          <Route path="/plan/:id" element={<DetaljiPlana/>}/>
         </Routes>
       </div>
     </Router>

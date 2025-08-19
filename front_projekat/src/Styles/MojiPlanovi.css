@@ -1,0 +1,50 @@
+
+
+.moji-planovi-container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 0 15px;
+}
+
+.moji-planovi-container h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2rem;
+  color: #333;
+}
+
+.planovi-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.plan-kartica {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  padding: 20px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.plan-kartica:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.plan-kartica h2 {
+  margin: 0 0 10px;
+  font-size: 1.2rem;
+  color: #222;
+}
+
+.plan-kartica p {
+  margin: 5px 0;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.plan-kartica p strong {
+  color: #333;
+}

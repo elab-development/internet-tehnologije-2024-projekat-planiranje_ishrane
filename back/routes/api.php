@@ -25,7 +25,8 @@ Route::middleware('auth:sanctum')->group(function () {
     
     Route::get('/recepti/svi', [ReceptController::class, 'getAll']);
     Route::get('/recepti', [ReceptController::class, 'index']);
-
+    Route::get('/recepti/{id}', [ReceptController::class, 'show']);
+    Route::post('/recepti', [ReceptController::class, 'store']);
 
 
 });

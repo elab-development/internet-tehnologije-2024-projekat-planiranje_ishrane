@@ -104,5 +104,78 @@ public function getAll(){
 
 
 
+public function store(Request $request)
+{
+    try {
+        $user = Auth::user();
+
+       
+        if (!$user || $user->uloga !== 'administrator') {
+            return response()->json([
+                'error' => 'Zabranjen pristup.',
+                'message' => 'Samo administrator može da dodaje recepte.'
+            ], 403);
+        }
+
+       
+        $validated = $request->validate([
+            'naziv' => 'required|string|max:255',
+            'tip_jela' => 'required|string|in:doručak,ručak,večera,užina',
+            'vreme_pripreme' => 'required|integer|min:0',
+            'opis_pripreme'=>'required|string',
+            'sastojci' => 'array',
+            'sastojci.*.sastojak_id' => 'required|exists:sastojci,id',
+            'sastojci.*.kolicina' => 'required|numeric|min:0.01'
+        ]);
+
+      
+        $recept = Recept::create([
+            'naziv' => $validated['naziv'],
+            'tip_jela' => $validated['tip_jela'],
+            'vreme_pripreme' => $validated['vreme_pripreme'],
+            'opis_pripreme' => $validated['opis_pripreme'],
+        ]);
+
+     
+        foreach ($validated['sastojci'] ?? [] as $s) {
+            $recept->sastojci()->attach($s['sastojak_id'], [
+                'kolicina' => $s['kolicina']
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'Recept uspešno sačuvan.',
+            'data' => new ReceptResource($recept->fresh('sastojci'))
+        ], 201);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'error' => 'Došlo je do greške pri čuvanju recepta.',
+            'message' => $e->getMessage()
+        ], 500);
+    }
+}
+
+
+
+public function show($id)
+{
+    try {
+
+        $user = Auth::user();
+        if(!$user){
+             return response()->json(['error' => 'Niste autorizovani.'], 403);
+        }
+        $recept = Recept::findOrFail($id);
+        return new ReceptResource($recept);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'error' => 'Došlo je do greške pri prikazu recepta.',
+            'message' => $e->getMessage()
+        ], 500);
+    }
+}
+
 
 }

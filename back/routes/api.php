@@ -48,4 +48,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/planovi-obroka', [PlanObrokaController::class, 'store']);
     Route::delete('/planovi-obroka/{id}', [PlanObrokaController::class, 'destroy']);
     Route::post('/planovi-obroka/{id}/dodaj-recept', [PlanObrokaController::class, 'dodajRecept']);
+    Route::delete('/planovi-obroka/{id}/ukloni-recept/{receptId}', [PlanObrokaController::class, 'ukloniRecept']);
 });

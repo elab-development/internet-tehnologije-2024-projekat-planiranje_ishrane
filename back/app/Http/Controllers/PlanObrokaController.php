@@ -238,5 +238,69 @@ public function dodajRecept(Request $request, $id)
     }
 }
 
+
+public function ukloniRecept($id, $receptId)
+{
+    try {
+        $user = Auth::user();
+        if (!$user) {
+            return response()->json(['error' => 'Niste autorizovani.'], 403);
+        }
+
+        
+        $plan = PlanObroka::where('id', $id)
+            ->where('user_id', $user->id)
+            ->first();
+
+        if (!$plan) {
+            return response()->json(['error' => 'Plan obroka nije pronađen ili nemate pristup.'], 404);
+        }
+
+     
+        if (!$plan->recepti()->where('id', $receptId)->exists()) {
+            return response()->json(['error' => 'Recept nije deo ovog plana obroka.'], 404);
+        }
+
+      
+        $plan->recepti()->detach($receptId);
+
+      
+        $listaZaKupovinu = $plan->listaZaKupovinu;
+
+      
+        $recept = Recept::with('sastojci')->find($receptId);
+
+        foreach ($recept->sastojci as $sastojak) {
+            $pivot = $sastojak->pivot; 
+
+          
+            $postojećiSastojakPivot = $listaZaKupovinu->sastojci()->where('sastojci.id', $sastojak->id)->first();
+
+            if ($postojećiSastojakPivot) {
+             $kolicina = $postojećiSastojakPivot->pivot->kolicina - $pivot->kolicina;
+
+                    if ($kolicina <= 0) {
+                      
+                        $listaZaKupovinu->sastojci()->detach($sastojak->id);
+                    } else {
+                        
+                        $listaZaKupovinu->sastojci()->updateExistingPivot($sastojak->id, [
+                            'kolicina' => $kolicina
+                        ]);
+                    }
+                } 
+            }
+        
+
+        return response()->json(['message' => 'Recept je uspešno uklonjen iz plana obroka.']);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'error' => 'Došlo je do greške prilikom uklanjanja recepta iz plana obroka.',
+            'message' => $e->getMessage()
+        ], 500);
+    }
+}
+
     
 }

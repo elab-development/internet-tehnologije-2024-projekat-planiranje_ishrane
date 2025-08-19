@@ -132,6 +132,53 @@ public function dodajSastojak(Request $request, $id)
 
 
 
+public function ukloniSastojak($id, $sastojakId)
+{
+    try {
+        $user = Auth::user();
+
+        if (!$user) {
+            return response()->json(['error' => 'Niste autorizovani.'], 403);
+        }
+
+       
+        $lista = ListaZaKupovinu::find($id);
+
+        if (!$lista) {
+            return response()->json(['error' => 'Lista za kupovinu nije pronađena.'], 404);
+        }
+
+        
+        $planObroka = $lista->planObroka;
+        if (!$planObroka || $planObroka->user_id !== $user->id) {
+            return response()->json(['error' => 'Nemate pristup ovoj listi za kupovinu.'], 403);
+        }
+
+        
+        $postojeci = $lista->sastojci()->where('sastojci.id', $sastojakId)->exists();
+
+        if (!$postojeci) {
+            return response()->json(['message' => 'Sastojak nije pronađen u listi za kupovinu.'], 404);
+        }
+
+
+        $lista->sastojci()->detach($sastojakId);
+
+        return response()->json([
+            'message' => 'Sastojak uspešno uklonjen iz liste za kupovinu.',
+            'lista_za_kupovinu' => new ListaZaKupovinuResource($lista->load('sastojci'))
+        ]);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'error' => 'Došlo je do greške prilikom uklanjanja sastojka iz liste za kupovinu.',
+            'message' => $e->getMessage()
+        ], 500);
+    }
+}
+
+
+
 
 
 }

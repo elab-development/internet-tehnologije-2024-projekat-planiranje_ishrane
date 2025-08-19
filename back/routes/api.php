@@ -53,4 +53,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/liste-za-kupovinu', [ListaZaKupovinuController::class, 'index']);
     Route::get('/liste-za-kupovinu/{id}', [ListaZaKupovinuController::class, 'show']);
     Route::post('/liste-za-kupovinu/{id}/dodaj-sastojak', [ListaZaKupovinuController::class, 'dodajSastojak']);
+    Route::delete('/liste-za-kupovinu/{id}/ukloni-sastojak/{sastojakId}', [ListaZaKupovinuController::class, 'ukloniSastojak']);
+
+
 });

@@ -1,0 +1,106 @@
+/* KreirajPlan.css */
+
+.kreiraj-plan-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #fdfdfd;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.kreiraj-plan-container h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.kreiraj-plan-container label {
+  display: block;
+  margin: 15px 0 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+.kreiraj-plan-container input[type="text"],
+.kreiraj-plan-container input[type="date"],
+.kreiraj-plan-container select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  margin-bottom: 15px;
+  transition: border-color 0.2s;
+}
+
+.kreiraj-plan-container input[type="text"]:focus,
+.kreiraj-plan-container input[type="date"]:focus,
+.kreiraj-plan-container select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.dinamicki-recepti {
+  margin-bottom: 20px;
+}
+
+.select-recept-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.select-recept-item select {
+  flex-grow: 1;
+}
+
+.select-recept-item button {
+  background-color: #dc3545;
+  border: none;
+  color: white;
+  padding: 7px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.select-recept-item button:hover {
+  background-color: #c82333;
+}
+
+.dinamicki-recepti > button {
+  margin-top: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s;
+}
+
+.dinamicki-recepti > button:hover {
+  background-color: #218838;
+}
+
+.btn-sacuvaj {
+  width: 100%;
+  padding: 12px 0;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.2s;
+}
+
+.btn-sacuvaj:hover {
+  background-color: #0069d9;
+}

@@ -168,5 +168,75 @@ public function destroy($id)
     }
 }
 
+
+
+public function dodajRecept(Request $request, $id)
+{
+    try {
+        $user = Auth::user();
+        if (!$user) {
+            return response()->json(['error' => 'Niste autorizovani.'], 403);
+        }
+
+        $validated = $request->validate([
+            'recept_id' => 'required|exists:recepti,id',
+        ]);
+
+        $plan = PlanObroka::where('id', $id)
+            ->where('user_id', $user->id)
+            ->first();
+
+        if (!$plan) {
+            return response()->json(['error' => 'Plan obroka nije pronađen ili nemate pristup.'], 404);
+        }
+
+        if ($plan->recepti()->where('id', $validated['recept_id'])->exists()) {
+            return response()->json(['message' => 'Recept je već dodat u plan obroka.'], 200);
+        }
+
+       
+        $plan->recepti()->attach($validated['recept_id']);
+
+      
+        $listaZaKupovinu = $plan->listaZaKupovinu;
+
+       
+        $recept = Recept::with('sastojci')->find($validated['recept_id']);
+
+        foreach ($recept->sastojci as $sastojak) {
+            $pivot = $sastojak->pivot; 
+            $kolicina = $pivot->kolicina;
+
+           
+            $postojećiSastojakPivot = $listaZaKupovinu->sastojci()->where('sastojci.id', $sastojak->id)->first();
+
+            if (!$postojećiSastojakPivot) {
+              
+                $listaZaKupovinu->sastojci()->attach($sastojak->id, [
+                    'kolicina' => $kolicina
+                ]);
+            } else {
+               
+                
+
+               $kolicina = $kolicina + $postojećiSastojakPivot->pivot->kolicina;
+
+             
+                $listaZaKupovinu->sastojci()->updateExistingPivot($sastojak->id, [
+                    'kolicina' => $kolicina
+                ]);
+            }
+        }
+
+        return response()->json(['message' => 'Recept je uspešno dodat u plan obroka.']);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'error' => 'Došlo je do greške prilikom dodavanja recepta u plan obroka.',
+            'message' => $e->getMessage()
+        ], 500);
+    }
+}
+
     
 }

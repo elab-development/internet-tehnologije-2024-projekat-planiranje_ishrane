@@ -1,0 +1,85 @@
+.detalji-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  margin-top: 50px ;
+}
+
+.recept-naziv {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+}
+
+.recept-slika {
+  display: block;
+  max-width: 100%;
+  border-radius: 12px;
+  margin: 20px auto;
+}
+
+.recept-vreme {
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+  text-align: justify;
+}
+
+.tabela-sastojaka {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 25px;
+}
+
+.tabela-sastojaka th, .tabela-sastojaka td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.nutritivne-vrednosti {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  background: #f8f8f8;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 25px;
+}
+
+.recept-priprema {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  text-align: justify;
+}
+
+.back-btn {
+  background: #ff914d;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.back-btn:hover {
+  background: #ff7b2c;
+}
+.btn-izmeni, .btn-obrisi{
+    padding: 10px 20px;
+    background-color: #ff7b2c;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-size: 18px;
+}
+.btn-izmeni:hover, .btn-obrisi:hover{
+    background-color: #f7630e;
+}
+.btn-obrisi{
+    margin-left: 20px;
+}

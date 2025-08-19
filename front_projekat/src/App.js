@@ -14,6 +14,7 @@ import IzmeniListu from "./Pages/IzmeniListu";
 import MojeListe from "./Pages/MojeListe";
 import KreirajPlan from "./Pages/KreirajPlan";
 import Omiljeni from "./Pages/Omiljeni";
+import FoodSearch from "./Pages/FoodSearch";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path="/moje-liste" element={<MojeListe/>}/>
           <Route path="/kreiraj-plan" element={<KreirajPlan/>}/>
           <Route path="/omiljeni" element={<Omiljeni/>}/>
+          <Route path="/javni-api" element={<FoodSearch/>}/>
         </Routes>
       </div>
     </Router>

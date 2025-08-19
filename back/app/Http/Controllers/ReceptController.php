@@ -177,5 +177,87 @@ public function show($id)
     }
 }
 
+public function destroy($id)
+{
+    $user = Auth::user();
+
+    if (!$user || $user->uloga !== 'administrator') {
+        return response()->json([
+            'error' => 'Nemate dozvolu za brisanje recepta.'
+        ], 403);
+    }
+
+    try {
+        $recept = Recept::findOrFail($id);
+        $recept->delete();
+
+        return response()->json([
+            'message' => 'Recept je uspešno obrisan.'
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'error' => 'Došlo je do greške pri brisanju recepta.',
+            'message' => $e->getMessage()
+        ], 500);
+    }
+}
+
+
+public function update(Request $request, $id)
+{
+    try {
+        $user = Auth::user();
+
+      
+        if (!$user || $user->uloga !== 'administrator') {
+            return response()->json([
+                'error' => 'Zabranjen pristup.',
+                'message' => 'Samo administrator može da ažurira recepte.'
+            ], 403);
+        }
+
+      
+        $validated = $request->validate([
+            'naziv' => 'required|string|max:255',
+            'tip_jela' => 'required|string|in:doručak,ručak,večera,užina',
+            'vreme_pripreme' => 'required|integer|min:0',
+            'opis_pripreme' => 'required|string',
+            'sastojci' => 'array',
+            'sastojci.*.sastojak_id' => 'required|exists:sastojci,id',
+            'sastojci.*.kolicina' => 'required|numeric|min:0.01'
+        ]);
+
+     
+        $recept = Recept::findOrFail($id);
+
+       
+        $recept->update([
+            'naziv' => $validated['naziv'],
+            'tip_jela' => $validated['tip_jela'],
+            'vreme_pripreme' => $validated['vreme_pripreme'],
+            'opis_pripreme' => $validated['opis_pripreme'],
+        ]);
+
+      
+        $pivotData = [];
+        foreach ($validated['sastojci'] ?? [] as $s) {
+            $pivotData[$s['sastojak_id']] = ['kolicina' => $s['kolicina']];
+        }
+
+        $recept->sastojci()->sync($pivotData);
+
+        return response()->json([
+            'message' => 'Recept uspešno ažuriran.',
+            'data' => new ReceptResource($recept->fresh('sastojci'))
+        ]);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'error' => 'Došlo je do greške pri ažuriranju recepta.',
+            'message' => $e->getMessage()
+        ], 500);
+    }
+}
+
 
 }

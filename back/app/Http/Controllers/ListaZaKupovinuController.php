@@ -73,6 +73,64 @@ public function index(Request $request){
 }
 
 
+public function dodajSastojak(Request $request, $id)
+{
+    try {
+        $user = Auth::user();
+
+        if (!$user) {
+            return response()->json(['error' => 'Niste autorizovani.'], 403);
+        }
+
+       
+        $validated = $request->validate([
+            'sastojak_id' => 'required|exists:sastojci,id',
+            'kolicina' => 'required|numeric' 
+        ]);
+
+    
+        $lista = ListaZaKupovinu::find($id);
+
+        if (!$lista) {
+            return response()->json(['error' => 'Lista za kupovinu nije pronađena.'], 404);
+        }
+
+      
+        $planObroka = $lista->planObroka;
+        if (!$planObroka || $planObroka->user_id !== $user->id) {
+            return response()->json(['error' => 'Nemate pristup ovoj listi za kupovinu.'], 403);
+        }
+
+
+        $postojeci = $lista->sastojci()->where('sastojci.id', $validated['sastojak_id'])->first();
+
+        if (!$postojeci) {
+           
+            $lista->sastojci()->attach($validated['sastojak_id'], [
+                'kolicina' => $validated['kolicina']
+            ]);
+        } else {
+         
+            $lista->sastojci()->updateExistingPivot($validated['sastojak_id'], [
+                'kolicina' => $postojeci->pivot->kolicina + $validated['kolicina'],
+                'updated_at' => now()
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'Sastojak uspešno dodat u listu za kupovinu.',
+            'lista_za_kupovinu' => new ListaZaKupovinuResource($lista->load('sastojci'))
+        ]);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'error' => 'Došlo je do greške prilikom dodavanja sastojka u listu za kupovinu.',
+            'message' => $e->getMessage()
+        ], 500);
+    }
+}
+
+
 
 
 

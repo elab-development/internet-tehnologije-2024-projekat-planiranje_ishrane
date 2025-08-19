@@ -52,5 +52,5 @@ Route::middleware('auth:sanctum')->group(function () {
     
     Route::get('/liste-za-kupovinu', [ListaZaKupovinuController::class, 'index']);
     Route::get('/liste-za-kupovinu/{id}', [ListaZaKupovinuController::class, 'show']);
-
+    Route::post('/liste-za-kupovinu/{id}/dodaj-sastojak', [ListaZaKupovinuController::class, 'dodajSastojak']);
 });

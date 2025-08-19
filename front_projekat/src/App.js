@@ -12,6 +12,8 @@ import DetaljiPlana from "./Pages/DetaljiPlana";
 import ListaKupovine from "./Pages/ListaKupovine";
 import IzmeniListu from "./Pages/IzmeniListu";
 import MojeListe from "./Pages/MojeListe";
+import KreirajPlan from "./Pages/KreirajPlan";
+import Omiljeni from "./Pages/Omiljeni";
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
           <Route path="/lista-kupovine/:planId" element={<ListaKupovine/>}/>
           <Route path="/izmeni-listu/:planId" element={<IzmeniListu/>}/>
           <Route path="/moje-liste" element={<MojeListe/>}/>
+          <Route path="/kreiraj-plan" element={<KreirajPlan/>}/>
+          <Route path="/omiljeni" element={<Omiljeni/>}/>
         </Routes>
       </div>
     </Router>

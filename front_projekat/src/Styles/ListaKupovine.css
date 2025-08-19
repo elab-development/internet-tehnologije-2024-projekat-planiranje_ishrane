@@ -1,0 +1,61 @@
+.lista-kupovine-container {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.lista-kupovine-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.lista-sastojaka {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.lista-sastojaka li {
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 1rem;
+}
+
+.btn-nazad {
+  display: block;
+  margin: 0 auto;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-nazad:hover {
+  background-color: #0056b3;
+}
+.lista-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.btn-izmeni-listu {
+  background-color: #f39c12;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.btn-izmeni-listu:hover {
+  background-color: #d68910;
+}

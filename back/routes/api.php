@@ -45,5 +45,7 @@ Route::middleware('auth:sanctum')->group(function () {
     
     Route::get('/planovi-obroka', [PlanObrokaController::class, 'index']);
     Route::get('/planovi-obroka/{id}', [PlanObrokaController::class, 'show']);
-
+    Route::post('/planovi-obroka', [PlanObrokaController::class, 'store']);
+    Route::delete('/planovi-obroka/{id}', [PlanObrokaController::class, 'destroy']);
+    
 });

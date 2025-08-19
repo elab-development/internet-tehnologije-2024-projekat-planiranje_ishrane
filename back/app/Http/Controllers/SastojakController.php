@@ -111,4 +111,61 @@ public function store(Request $request)
     ], 201);
 }
 
+
+public function update(Request $request, $id)
+{
+    $user = Auth::user();
+      if(!$user || $user->uloga!=='administrator'){
+         return response()->json(['error' => 'Ne mozete menjati sastojke ako niste prijavljeni kao administrator.'], 403);
+    }
+
+     $sastojak = Sastojak::find($id);
+    if (!$sastojak) {
+        return response()->json(['message' => 'Sastojak nije pronađen.'], 404);
+    }
+
+ 
+    $validatedData = $request->validate([
+        'naziv' => 'sometimes|string|max:255',
+        'kategorija' => 'sometimes|string|max:255',
+        'masti' => 'sometimes|numeric|min:0',
+        'proteini' => 'sometimes|numeric|min:0',
+        'ugljeni_hidrati' => 'sometimes|numeric|min:0',
+        'kalorije' => 'sometimes|numeric|min:0',
+        'tip' => 'sometimes|string|max:255',
+    ]);
+
+  
+    $sastojak->update($validatedData);
+
+    return response()->json([
+        'message' => 'Sastojak uspešno ažuriran.',
+        'data' => new SastojakResource($sastojak),
+    ]);
+}
+
+
+
+public function destroy($id)
+{
+
+    $user = Auth::user();
+    if(!$user){
+         return response()->json(['error' => 'Niste autorizovani.'], 403);
+    }
+    $sastojak = Sastojak::find($id);
+
+    if (!$sastojak) {
+        return response()->json([
+            'message' => 'Sastojak nije pronađen.'
+        ], 404);
+    }
+
+    $sastojak->delete();
+
+    return response()->json([
+        'message' => 'Sastojak je uspešno obrisan.'
+    ], 200);
+}
+
 }

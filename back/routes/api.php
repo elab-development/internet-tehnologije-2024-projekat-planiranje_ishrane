@@ -38,5 +38,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/sastojci', [SastojakController::class, 'index']);
     Route::get('/sastojci/{id}', [SastojakController::class, 'show']);
     Route::post('/sastojci', [SastojakController::class, 'store']);
+    Route::put('/sastojci/{id}', [SastojakController::class, 'update']);
+    Route::delete('/sastojci/{id}', [SastojakController::class, 'destroy']);
 
 });

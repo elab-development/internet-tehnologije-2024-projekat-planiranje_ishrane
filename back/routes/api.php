@@ -6,7 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ReceptController;
 use App\Http\Controllers\SastojakController;
 use App\Http\Controllers\PlanObrokaController;
-
+use App\Http\Controllers\ListaZaKupovinuController;
 
 
 
@@ -49,4 +49,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/planovi-obroka/{id}', [PlanObrokaController::class, 'destroy']);
     Route::post('/planovi-obroka/{id}/dodaj-recept', [PlanObrokaController::class, 'dodajRecept']);
     Route::delete('/planovi-obroka/{id}/ukloni-recept/{receptId}', [PlanObrokaController::class, 'ukloniRecept']);
+    
+    Route::get('/liste-za-kupovinu', [ListaZaKupovinuController::class, 'index']);
+    Route::get('/liste-za-kupovinu/{id}', [ListaZaKupovinuController::class, 'show']);
+
 });

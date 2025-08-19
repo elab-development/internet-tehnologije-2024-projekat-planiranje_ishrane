@@ -4,6 +4,9 @@ import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import SviRecepti from "./Pages/SviRecepti";
 import DetaljiRecepta from "./Pages/DetaljiRecepta";
+import SviSastojci from "./Pages/SviSastojci";
+import DodajSastojak from "./Pages/DodajSastojak";
+
 
 function App() {
   return (
@@ -14,6 +17,8 @@ function App() {
           <Route path="/register" element={<Register/>}/>
           <Route path="/recepti" element={<SviRecepti/>}/>
           <Route path="/recepti/:id" element={<DetaljiRecepta/>}/>
+          <Route path="/sastojci" element={<SviSastojci/>}/>
+          <Route path="/dodaj-sastojak" element={<DodajSastojak/>}/>
         </Routes>
       </div>
     </Router>

@@ -178,6 +178,44 @@ public function ukloniSastojak($id, $sastojakId)
 }
 
 
+public function update(Request $request, $id)
+{
+    try{
+
+    $lista = ListaZaKupovinu::findOrFail($id);
+    
+
+    
+    $validated = $request->validate([
+        'sastojci' => 'required|array',
+        'sastojci.*.id' => 'required|exists:sastojci,id',
+        'sastojci.*.kolicina' => 'required|numeric',
+    ]);
+
+   
+    $lista->sastojci()->detach();
+
+
+    foreach ($validated['sastojci'] as $sastojak) {
+        $lista->sastojci()->attach($sastojak['id'], [
+            'kolicina' => $sastojak['kolicina']
+        ]);
+    }
+
+    return response()->json([
+        'message' => 'Lista uspešno ažurirana.',
+        'data' => new ListaZaKupovinuResource($lista->load('sastojci'))
+    ]);
+    }catch (\Exception $e) {
+        return response()->json([
+            'error' => 'Došlo je do greške prilikom izmene liste za kupovinu.',
+            'message' => $e->getMessage()
+        ], 500);
+    }
+
+}
+
+
 
 
 

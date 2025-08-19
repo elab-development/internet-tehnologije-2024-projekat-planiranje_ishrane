@@ -1,0 +1,108 @@
+/* IzmeniListu.css */
+
+.lista-kupovine-container {
+  max-width: 700px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #fefefe;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+.lista-kupovine-container h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+.lista-sastojaka {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+.sastojak-red {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  padding: 10px 12px;
+  background-color: #f8f8f8;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.sastojak-red:hover {
+  background-color: #e8e8e8;
+}
+
+.sastojak-red span {
+  font-size: 16px;
+  color: #444;
+}
+
+.sastojak-red input[type="number"] {
+  width: 70px;
+  padding: 5px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+  margin: 0 10px;
+  font-size: 15px;
+}
+
+.sastojak-red .btn-obrisi {
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.sastojak-red .btn-obrisi:hover {
+  background-color: #ff4c4c;
+}
+
+.btn-sacuvaj, .btn-nazad {
+  display: inline-block;
+  margin: 10px 5px 0 0;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background 0.2s;
+}
+
+.btn-sacuvaj {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.btn-sacuvaj:hover {
+  background-color: #45a049;
+}
+
+.btn-nazad {
+  background-color: #777;
+  color: white;
+}
+
+.btn-nazad:hover {
+  background-color: #555;
+}
+
+.not-found {
+  text-align: center;
+  margin-top: 100px;
+  font-family: 'Arial', sans-serif;
+}
+
+.not-found h2 {
+  margin-bottom: 20px;
+  color: #333;
+}

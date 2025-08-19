@@ -9,6 +9,9 @@ import DodajSastojak from "./Pages/DodajSastojak";
 import DodajRecept from "./Pages/DodajRecept";
 import MojiPlanovi from "./Pages/MojiPlanovi";
 import DetaljiPlana from "./Pages/DetaljiPlana";
+import ListaKupovine from "./Pages/ListaKupovine";
+import IzmeniListu from "./Pages/IzmeniListu";
+import MojeListe from "./Pages/MojeListe";
 
 function App() {
   return (
@@ -24,6 +27,9 @@ function App() {
           <Route path="/dodaj-recept" element={<DodajRecept/>}/>
           <Route path="/planovi" element={<MojiPlanovi/>}/>
           <Route path="/plan/:id" element={<DetaljiPlana/>}/>
+          <Route path="/lista-kupovine/:planId" element={<ListaKupovine/>}/>
+          <Route path="/izmeni-listu/:planId" element={<IzmeniListu/>}/>
+          <Route path="/moje-liste" element={<MojeListe/>}/>
         </Routes>
       </div>
     </Router>

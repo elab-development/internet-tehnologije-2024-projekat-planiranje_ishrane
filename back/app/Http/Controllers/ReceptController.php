@@ -260,4 +260,60 @@ public function update(Request $request, $id)
 }
 
 
+public function toggleOmiljeni($id)
+{
+    try {
+        $user = Auth::user();
+
+        if (!$user && $user->uloga!=='korisnik') {
+            return response()->json([
+                'error' => 'Nemate dozvolu da dodajete ili brisete omiljene recepte.',
+            ], 403);
+        }
+
+        $recept = Recept::find($id);
+
+        if (!$recept) {
+            return response()->json([
+                'error' => 'Recept nije pronađen.',
+            ], 404);
+        }
+
+        if ($user->omiljeniRecepti()->where('id_recepta', $id)->exists()) {
+            $user->omiljeniRecepti()->detach($id);
+
+            return response()->json([
+                'message' => 'Recept je uklonjen iz omiljenih.',
+            ]);
+        } else {
+            $user->omiljeniRecepti()->attach($id);
+
+            return response()->json([
+                'message' => 'Recept je dodat u omiljene.',
+            ]);
+        }
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'error' => 'Došlo je do greške prilikom menjanja statusa omiljenog recepta.',
+            'message' => $e->getMessage()
+        ], 500);
+    }
+}
+
+
+public function mojiOmiljeni()
+{
+    $user = Auth::user();
+    if(!$user || $user->uloga!=="korisnik"){
+         return response()->json([
+                'error' => 'Nemate dozvolu da prikazete omiljene recepte.',
+            ], 403);
+    }
+    $omiljeniRecepti = $user->omiljeniRecepti()->paginate(10); 
+
+    return ReceptResource::collection($omiljeniRecepti);
+}
+
+
 }

@@ -29,6 +29,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/recepti', [ReceptController::class, 'store']);
     Route::put('/recepti/{id}', [ReceptController::class, 'update']);
     Route::delete('/recepti/{id}', [ReceptController::class, 'destroy']);
-
+    Route::post('/recepti/{id}/omiljeni', [ReceptController::class, 'toggleOmiljeni']);
+    Route::get('/moji-omiljeni-recepti', [ReceptController::class, 'mojiOmiljeni']);
 
 });

@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ReceptController;
 use App\Http\Controllers\SastojakController;
-
+use App\Http\Controllers\PlanObrokaController;
 
 
 
@@ -40,5 +40,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/sastojci', [SastojakController::class, 'store']);
     Route::put('/sastojci/{id}', [SastojakController::class, 'update']);
     Route::delete('/sastojci/{id}', [SastojakController::class, 'destroy']);
+
+
+    
+    Route::get('/planovi-obroka', [PlanObrokaController::class, 'index']);
+    Route::get('/planovi-obroka/{id}', [PlanObrokaController::class, 'show']);
 
 });

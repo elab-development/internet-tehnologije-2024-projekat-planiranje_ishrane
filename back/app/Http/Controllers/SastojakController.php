@@ -55,4 +55,60 @@ public function getAll(){
     return SastojakResource::collection(Sastojak::all());
 }
 
+   public function show($id)
+{
+
+    $user = Auth::user();
+    if(!$user){
+         return response()->json(['error' => 'Niste autorizovani.'], 403);
+    }
+    $sastojak = Sastojak::find($id);
+
+    if (!$sastojak) {
+        return response()->json([
+            'message' => 'Sastojak nije pronađen.'
+        ], 404);
+    }
+
+    return new SastojakResource($sastojak);
+}
+
+
+public function store(Request $request)
+{
+    $user = Auth::user();
+    if(!$user || $user->uloga!=='administrator'){
+         return response()->json(['error' => 'Ne mozete dodavati sastojke ako niste prijavljeni kao administrator.'], 403);
+    }
+    $validatedData = $request->validate([
+        'naziv' => 'required|string|max:255',
+        'kategorija' => 'required|string|max:255',
+        'masti' => 'required|numeric|min:0',
+        'proteini' => 'required|numeric|min:0',
+        'ugljeni_hidrati' => 'required|numeric|min:0',
+        'kalorije' => 'required|numeric|min:0',
+        'tip' => 'required|in:organski,neorganski',
+        'jedinica'=>'required|in:g,ml,kom,kasika'
+    ]);
+
+  
+   
+    $sastojak = Sastojak::create([
+        'naziv' => $validatedData['naziv'],
+        'kategorija' => $validatedData['kategorija'],
+        'masti' => $validatedData['masti'],
+        'proteini' => $validatedData['proteini'],
+        'ugljeni_hidrati' => $validatedData['ugljeni_hidrati'],
+        'kalorije' => $validatedData['kalorije'],
+        'tip' => $validatedData['tip'],
+        'jedinica'=>$validatedData['jedinica']
+        
+    ]);
+
+    return response()->json([
+        'message' => 'Sastojak uspešno kreiran.',
+        'data' => new SastojakResource($sastojak)
+    ], 201);
+}
+
 }

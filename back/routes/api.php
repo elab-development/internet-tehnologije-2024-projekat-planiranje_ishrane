@@ -36,5 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
     
     Route::get('/sastojci/svi', [SastojakController::class, 'getAll']);
     Route::get('/sastojci', [SastojakController::class, 'index']);
+    Route::get('/sastojci/{id}', [SastojakController::class, 'show']);
+    Route::post('/sastojci', [SastojakController::class, 'store']);
 
 });

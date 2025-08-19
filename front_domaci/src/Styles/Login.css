@@ -1,0 +1,89 @@
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vw;
+  overflow-y: hidden;
+  background: linear-gradient(to bottom right, #e8f5e9, #a5d6a7);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login-container {
+  max-width: 400px;
+  margin: 80px auto;
+  padding: 30px;
+  border-radius: 15px;
+  background: white;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.login-container h2 {
+  margin-bottom: 20px;
+  color: #2e7d32;
+}
+
+.login-container input {
+  padding: 12px;
+  margin: 8px 0;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.login-container input:focus {
+  outline: none;
+  border-color: #66bb6a;
+}
+
+.login-container button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out, transform 0.1s ease-in-out;
+}
+
+.login-container button:hover {
+  transform: scale(1.02);
+}
+
+.login-container button:first-of-type {
+  background: #66bb6a;
+  color: white;
+}
+
+.login-container button:first-of-type:hover {
+  background: #57a05b;
+}
+
+button.secondary-btn {
+  background: #eeeeee;
+  color: #333;
+}
+
+button.secondary-btn:hover {
+  background: #e0e0e0;
+}
+
+button.guest-btn {
+  background: #ffa000;
+  color: white;
+}
+
+button.guest-btn:hover {
+  background: #ff8f00;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
